@@ -85,7 +85,7 @@ a:visited {
   backface-visibility: hidden; /* Prevents flicker */
   outline: 1px solid transparent; /* Forces GPU layer */
   white-space: pre-line;
-  background-image: url(./vite.svg);
+  background-image: url(../vite.svg);
   background-position-x: calc(var(--x-offset) - var(--n) * var(--width));
   background-position-y: var(--y-offset);
   background-size: 150px 175px;
