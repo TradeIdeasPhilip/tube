@@ -28,10 +28,10 @@ export function computeTubeSideWidth(
 function createTube(
   container: HTMLElement,
   sides: number = 12,
-  radius: number = 50  // ← now apothem!
+  radius: number = 50 // ← now apothem!
 ) {
   container.innerHTML = "";
-  
+
   // Side width = 2 * radius * tan(π / N)
   const sideWidth = 2 * radius * Math.tan(Math.PI / sides);
   const widthStr = `${sideWidth.toFixed(6)}vmin`;
@@ -43,7 +43,8 @@ function createTube(
     div.className = "tube-side";
     div.style.setProperty("--width", widthStr);
     div.style.setProperty("--rotation", `${angleDeg}deg`);
-    div.textContent = `Side ${i + 1}\n`.repeat(20);
+    div.style.setProperty("--n", i.toString());
+    div.textContent = `\n${i + 1}`;
     container.appendChild(div);
   }
 }
@@ -53,5 +54,4 @@ function createTube(
   createTube(container, sides);
 };
 
-createTube(container, 3);
-
+createTube(container, 15);
