@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ranchers&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Life+Savers:wght@400;700;800&display=swap");
+
+body {
+  font-family: "Life Savers", serif;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+select,
+input {
+  font-family: "Life Savers", serif;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Ranchers", fantasy;
+  font-weight: 400;
+}
+
+/**
+ * This is a common style for code.
+ *
+ */
+code {
+  background-color: lightblue;
+  border-radius: 0.3em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  color: blue;
+  font-family: "Source Code Pro", monospace;
+  font-weight: 400;
+  font-size: 85%;
+}
+
+a:visited {
+  color: #c000c0;
+}
+
+.side {
+  height: 3lh;
+  width: 3lh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center; /* Centers content vertically */
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.top {
+  background-color: hwb(0 50% 0%);
+  transform: translateY(-3lh) rotateX(90deg) translateY(1.5lh);
+  transform-origin: bottom;
+  top: 0;
+  left: 0;
+}
+.left {
+  background-color: hwb(0 33% 0%);
+  transform: translateX(-3lh) rotateY(-90deg) translateX(1.5lh);
+  transform-origin: right;
+  top: 0;
+  left: 0;
+}
+.right {
+  background-color: hwb(0 0% 10%);
+  transform: rotateY(90deg) translateX(-1.5lh);
+  transform-origin: left;
+  top: 0;
+  left: 3lh;
+}
+.front {
+  background-color: red;
+  transform: translateZ(1.5lh);
+}
+.bottom {
+  transform: rotateX(-90deg) translateY(3lh) translateY(-1.5lh);
+  transform-origin: bottom;
+  background-color: hwb(0 0% 25%);
+}
+.back {
+  background-color: red;
+  color: white;
+  font-weight: bolder;
+  transform: translateZ(-1.5lh) rotateY(180deg);
+  transform-origin: center;
+}
+
+.cube {
+  transform-style: preserve-3d;
+  position: absolute;
+  width: 3lh;
+  height: 3lh;
+  transform-origin: center;
+  pointer-events: auto;
+}
+
+#stage {
+  transform-style: preserve-3d;
+  position: absolute;
+  transform-origin: center;
+  pointer-events: none;
+  transition: transform 1.5s;
+}
+
+@property --rotation {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0turn;
+}
+
+#help {
+  position: absolute;
+  bottom: 0;
+}
+
+#container1 {
+  perspective: 224px;
+  position: absolute;
+  transform-style: preserve-3d;
+  top: 50vh;
+  left: 50vw;
+  perspective-origin: 0 0;
+}
+
+.tube-side {
+  background-color: red;
+  color: white;
+  text-align: center;
+  position: absolute;
+  --rotation: 5deg;
+  --width: 5vmin;
+  width: var(--width);
+  height: 100vmin;
+  left: calc(var(--width) / -2);
+  transform-origin: center top;
+  transform: rotateZ(var(--rotation)) translateY(-50vmin) rotateX(-90deg);
+ /* transform-origin: center 50vmin;
+  transform: rotateZ(var(--rotation)) rotateX(-90deg);*/
+  backface-visibility: hidden; /* Prevents flicker */
+  outline: 1px solid transparent; /* Forces GPU layer */
+  white-space: pre-line; 
+}
