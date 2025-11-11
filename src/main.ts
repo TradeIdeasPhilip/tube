@@ -53,4 +53,4 @@ function createTube(
   createTube(container, sides);
 };
 
-createTube(container, 15);
+createTube(container, 32);
