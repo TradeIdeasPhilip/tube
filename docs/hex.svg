@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="60" height="34.6410162"
+  preserveAspectRatio="none" viewBox="0 0 6 3.46410162">
+  <circle cx="1" cy="1" r="0.5" style="fill:red"></circle>
+  <circle cx="3" cy="1" r="0.5" style="fill:limegreen"></circle>
+  <circle cx="5" cy="1" r="0.5" style="fill:hwb(204.42deg 0% 0%)"></circle>
+  <circle cx="0" cy="2.73205081" r="0.5" style="fill:limegreen"></circle>
+  <circle cx="2" cy="2.73205081" r="0.5" style="fill:hwb(204.42deg 0% 0%)"></circle>
+  <circle cx="4" cy="2.73205081" r="0.5" style="fill:red"></circle>
+  <circle cx="6" cy="2.73205081" r="0.5" style="fill:limegreen"></circle>
+</svg>

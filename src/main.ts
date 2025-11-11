@@ -35,13 +35,12 @@ function createTube(
   // Side width = 2 * radius * tan(π / N)
   const sideWidth = 2 * radius * Math.tan(Math.PI / sides);
   const widthStr = `${sideWidth.toFixed(6)}vmin`;
-
+  container.style.setProperty("--width", widthStr);
+  container.style.setProperty("--number-of-sides", sides.toString());
   for (let i = 0; i < sides; i++) {
     const angleDeg = (i * 360) / sides;
-
     const div = document.createElement("div");
     div.className = "tube-side";
-    div.style.setProperty("--width", widthStr);
     div.style.setProperty("--rotation", `${angleDeg}deg`);
     div.style.setProperty("--n", i.toString());
     div.textContent = `\n${i + 1}`;

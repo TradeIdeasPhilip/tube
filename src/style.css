@@ -69,14 +69,16 @@ a:visited {
   top: 50vh;
   left: 50vw;
   perspective-origin: 0 0;
+  --background-image-width: calc(var(--width) * var(--number-of-sides) / 7);
+  --background-image-height: calc(var(--background-image-width) / sqrt(3));
 }
 
 .tube-side {
-  background-color: red;
+  color: white;
+  background-color: black;
   text-align: center;
   position: absolute;
   --rotation: 5deg;
-  --width: 5vmin;
   width: calc(1px + var(--width));
   height: 900px;
   left: calc(var(--width) / -2);
@@ -85,11 +87,11 @@ a:visited {
   backface-visibility: hidden; /* Prevents flicker */
   outline: 1px solid transparent; /* Forces GPU layer */
   white-space: pre-line;
-  background-image: url(../vite.svg);
+  background-image: url(../hex.svg);
   background-position-x: calc(var(--x-offset) - var(--n) * var(--width));
   background-position-y: var(--y-offset);
-  background-size: 150px 175px;
-  animation: background-opt 5s 0s infinite;
+  background-size: var(--background-image-width) var(--background-image-height);
+  animation: background-opt 20s linear 0s infinite;
 }
 
 /* Fast.  Pegged at 60fps. */
@@ -164,12 +166,12 @@ a:visited {
     --x-offset: 0;
     --y-offset: 0;
   }
-  50% {
-    --x-offset: 150px;
-    --y-offset: 0;
+  90% {
+    --x-offset: 0;
+    --y-offset: calc(-9 * var(--background-image-height));
   }
   100% {
-    --x-offset: 150px;
-    --y-offset: 175px;
+    --x-offset: var(--background-image-width);
+    --y-offset: calc(-10 * var(--background-image-height));
   }
 }
