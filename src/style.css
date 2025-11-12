@@ -44,24 +44,28 @@ a:visited {
   color: #c000c0;
 }
 
+/* -------------------------------------------------
+   CSS variables that can be animated
+   ------------------------------------------------- */
 @property --rotation {
   syntax: "<angle>";
   inherits: false;
   initial-value: 0turn;
 }
-
 @property --x-offset {
   syntax: "<length>";
   inherits: true;
   initial-value: 0;
 }
-
 @property --y-offset {
   syntax: "<length>";
   inherits: true;
   initial-value: 0;
 }
 
+/* -------------------------------------------------
+   Container – only the perspective stays here
+   ------------------------------------------------- */
 #container1 {
   perspective: 224px;
   position: absolute;
@@ -69,98 +73,65 @@ a:visited {
   top: 50vh;
   left: 50vw;
   perspective-origin: 0 0;
-  --background-image-width: calc(var(--width) * var(--number-of-sides) / 7);
-  --background-image-height: calc(var(--background-image-width) / sqrt(3));
+
+  --y-scale: 1;
+  --height: 400px;
+  --z-offset: 0px;
 }
 
+/* -------------------------------------------------
+   One side of a tube segment
+   ------------------------------------------------- */
 .tube-side {
+  /* ---- layout ------------------------------------------------ */
   color: white;
   background-color: black;
   text-align: center;
   position: absolute;
-  --rotation: 5deg;
-  width: calc(1px + var(--width));
-  height: 900px;
+  width: calc(1px + var(--width)); /* unchanged */
   left: calc(var(--width) / -2);
   transform-origin: center top;
-  transform: rotateZ(var(--rotation)) translateY(-50vmin) rotateX(-90deg);
-  backface-visibility: hidden; /* Prevents flicker */
-  outline: 1px solid transparent; /* Forces GPU layer */
+
+  /* ---- height in *unscaled* units ----------------------------- */
+  /* TS will set --height (real world length, e.g. 200vmin) */
+  height: calc(var(--height) / var(--y-scale));
+
+  /* ---- 3-D transform ------------------------------------------ */
+  /* 1. [gone] */
+  /* 2. rotate around the tube axis */
+  /* 3. push the top of the panel to the tube radius */
+  /* 4. lay the panel flat on the inside wall */
+  /* 5. offset the whole segment down the tube */
+  /* 6. stretch it vertically (LOD) */
+  transform:  rotateZ(var(--rotation)) translateY(-50vmin)
+    rotateX(-90deg) translateY(var(--z-offset)) scaleY(var(--y-scale));
+
+  /* ---- GPU promotion ------------------------------------------ */
+  backface-visibility: hidden;
+  outline: 1px solid transparent;
   white-space: pre-line;
-  background-image: url(../hex.svg);
+
+  /* ---- repeating texture -------------------------------------- */
+  background-image: url("./hex.svg?url");
+
+  /* the texture size is *unscaled* – we divide by the scale factor */
+  --bg-w: calc(var(--width) * var(--number-of-sides) / 7);
+  --bg-h: calc(var(--bg-w) / sqrt(3));
+  background-size: var(--bg-w) calc(var(--bg-h) / var(--y-scale));
+
+  /* horizontal offset for seamless wrap across sides */
   background-position-x: calc(var(--x-offset) - var(--n) * var(--width));
-  background-position-y: var(--y-offset);
-  background-size: var(--background-image-width) var(--background-image-height);
+  background-position-y: calc(
+    var(--y-offset) - (var(--z-offset) / var(--y-scale))
+  );
+
+  /* ---- animation (same logic, now aware of scale) ------------- */
   animation: background-opt 20s linear 0s infinite;
 }
 
-/* Fast.  Pegged at 60fps. */
-@keyframes bg1 {
-  0% {
-    background-size: 150px 175px;
-  }
-  100% {
-    background-size: 150px 275px;
-  }
-}
-
-/* Slow.  Less than 30fps, varying a lot. */
-@keyframes bg2 {
-  0%,
-  10% {
-    background-size: 150px 175px;
-  }
-  30%,
-  50% {
-    background-size: 150px 275px;
-  }
-  70%,
-  100% {
-    background-size: 300px 275px;
-  }
-}
-
-/* Fast.  60fps, with a few instances of 58. */
-@keyframes bg3 {
-  0% {
-    background-size: 150px 175px;
-  }
-  10% {
-    background-size: 150px 175.01px;
-  }
-  30% {
-    background-size: 150px 274.9px;
-  }
-  50% {
-    background-size: 150px 275px;
-  }
-  70% {
-    background-size: 299.9px 275px;
-  }
-  100% {
-    background-size: 300px 275px;
-  }
-}
-
-/* Slow!  Less than 30fps, varying a lot. */
-@keyframes background {
-  0%,
-  10% {
-    --x-offset: 0;
-    --y-offset: 0;
-  }
-  30%,
-  50% {
-    --x-offset: 150px;
-    --y-offset: 0;
-  }
-  70%,
-  100% {
-    --x-offset: 150px;
-    --y-offset: 175px;
-  }
-}
-
+/* -------------------------------------------------
+   Seamless scrolling animation
+   ------------------------------------------------- */
 @keyframes background-opt {
   0% {
     --x-offset: 0;
@@ -168,10 +139,10 @@ a:visited {
   }
   90% {
     --x-offset: 0;
-    --y-offset: calc(-9 * var(--background-image-height));
+    --y-offset: calc(-9 * var(--bg-h) / var(--y-scale));
   }
   100% {
-    --x-offset: var(--background-image-width);
-    --y-offset: calc(-10 * var(--background-image-height));
+    --x-offset: var(--bg-w);
+    --y-offset: calc(-10 * var(--bg-h) / var(--y-scale));
   }
 }
