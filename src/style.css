@@ -79,6 +79,30 @@ a:visited {
   --z-offset: 0px;
 }
 
+[data-segment="0"] {
+  --y-scale: 1;
+  --height: 301px;
+  --z-offset: 0px;
+}
+
+[data-segment="1"] {
+  --y-scale: 5;
+  --height: 1501px;
+  --z-offset: 300px;
+}
+
+[data-segment="2"] {
+  --y-scale: 25;
+  --height: 6001px;
+  --z-offset: 1800px;
+}
+
+[data-segment="3"] {
+  --y-scale: 25;
+  --height: 6001px;
+  --z-offset: 2400px;
+}
+
 /* -------------------------------------------------
    One side of a tube segment
    ------------------------------------------------- */
@@ -103,12 +127,11 @@ a:visited {
   /* 4. lay the panel flat on the inside wall */
   /* 5. offset the whole segment down the tube */
   /* 6. stretch it vertically (LOD) */
-  transform:  rotateZ(var(--rotation)) translateY(-50vmin)
-    rotateX(-90deg) translateY(var(--z-offset)) scaleY(var(--y-scale));
+  transform: rotateZ(var(--rotation)) translateY(-50vmin) rotateX(-90deg)
+    translateY(var(--z-offset)) scaleY(var(--y-scale));
 
   /* ---- GPU promotion ------------------------------------------ */
   backface-visibility: hidden;
-  outline: 1px solid transparent;
   white-space: pre-line;
 
   /* ---- repeating texture -------------------------------------- */
