@@ -23,13 +23,14 @@ export function computeTubeSideWidth(
  * Create a tube with N sides.
  * @param container The parent element.
  * @param sides Number of sides (N ≥ 3).
+ * @param numberOfSegments How many shorter cylinders laid end to end to produce the illusion of a single longer cylinder.
  * @param radius Distance from tube center to the *midpoint* of a side (apothem).
  */
 function createTube(
   container: HTMLElement,
   sides: number = 12,
   numberOfSegments: number = 3,
-  radius: number = 50 // ← now apothem!
+  radius: number = 50
 ) {
   container.innerHTML = "";
 

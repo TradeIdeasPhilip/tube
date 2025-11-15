@@ -77,6 +77,7 @@ a:visited {
   --y-scale: 1;
   --height: 400px;
   --z-offset: 0px;
+  --cone: 0deg;
 }
 
 [data-segment="0"] {
@@ -92,15 +93,16 @@ a:visited {
 }
 
 [data-segment="2"] {
-  --y-scale: 25;
+  --y-scale: 20;
   --height: 6001px;
   --z-offset: 1800px;
+  --cone: 5deg;
 }
 
 [data-segment="3"] {
   --y-scale: 25;
   --height: 6001px;
-  --z-offset: 2400px;
+  --z-offset: 7800px;
 }
 
 /* -------------------------------------------------
@@ -128,10 +130,11 @@ a:visited {
   /* 5. offset the whole segment down the tube */
   /* 6. stretch it vertically (LOD) */
   transform: rotateZ(var(--rotation)) translateY(-50vmin) rotateX(-90deg)
-    translateY(var(--z-offset)) scaleY(var(--y-scale));
+    translateY(var(--z-offset)) rotateX(var(--cone)) scaleY(var(--y-scale));
 
   /* ---- GPU promotion ------------------------------------------ */
   backface-visibility: hidden;
+
   white-space: pre-line;
 
   /* ---- repeating texture -------------------------------------- */
